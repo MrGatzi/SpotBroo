@@ -11,7 +11,7 @@ export default function Index() {
       .then(response => {
         const prices = response.data.data.map((item: { start_timestamp: string | number | Date; marketprice: any; }) => ({
           time: new Date(item.start_timestamp).toLocaleTimeString([], { hour: '2-digit' }),
-          price: item.marketprice
+          price: item.marketprice / 10 // Adjusting the price from €/MWh to ct/kWh by dividing by 10
         }));
         setSpotPrices(prices);
       })
@@ -20,21 +20,30 @@ export default function Index() {
       });
   }, []);
 
+  // Log the length of spotPrices
+  console.log('spotPrices.length:', spotPrices.length);
+
+  // Limit the timestamps to every 4 hours for labels
+  const limitedLabels = spotPrices
+    .map((item, index) => (index % 4 === 0 ? item.time : ''))
+    .filter((label, index, self) => self.indexOf(label) === index);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {spotPrices.length > 0 ? (
         <LineChart
           data={{
-            labels: spotPrices.map(item => item.time),
+            labels: limitedLabels,
             datasets: [
               {
                 data: spotPrices.map(item => item.price)
               }
-            ]
+            ],
+            legend: ["Spot Prices"]
           }}
           width={Dimensions.get('window').width}
-          height={Dimensions.get('window').height}
-          yAxisLabel="€"
+          height={Dimensions.get('window').height * .7}
+          yAxisLabel="ct "
           chartConfig={{
             backgroundColor: '#e26a00',
             backgroundGradientFrom: '#fb8c00',
@@ -45,7 +54,7 @@ export default function Index() {
               borderRadius: 16
             }
           }}
-          formatYLabel={yValue => parseFloat(yValue).toFixed(2)}
+          formatYLabel={yValue => Math.round(yValue).toString()} // Format y-axis labels to whole numbers
           style={{
             marginVertical: 8,
             borderRadius: 16
