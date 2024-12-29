@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { SettingsList } from '@/components/settings/SettingsList';
 
-export default function Settings() {
+const Settings = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings Screen</Text>
+    <View style={{ flex: 1 }}>
+      <SettingsList/>
     </View>
   );
-}
+};
+
+export default Settings;

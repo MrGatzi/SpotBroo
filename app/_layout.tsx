@@ -1,17 +1,19 @@
 import { Stack, useRouter, useSegments } from "expo-router";
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { SettingsProvider } from "@/contexts/SetttingsContext";
+
 
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
 
   const goToSettings = () => {
-    console.log("Go to settings");
     router.push('/settings');
   };
 
   return (
+    <SettingsProvider>
     <Stack
       screenOptions={{
         headerRight: () => (
@@ -23,5 +25,6 @@ export default function RootLayout() {
         ),
       }}
     />
+  </SettingsProvider>
   );
 }
