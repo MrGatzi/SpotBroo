@@ -7,7 +7,6 @@ const useSettings = () => {
   const [headerSettings, setHeaderSettings] = useState<HeaderSettings[]>([]);
 
   useEffect(() => {
-    console.log("in useSettings hook", headerSettings);
     const loadSettings = async () => {
       const savedSettings = await AsyncStorage.getItem('userSettings');
       if (savedSettings) {
@@ -23,7 +22,6 @@ const useSettings = () => {
   }, []);
 
   const updateSetting = async (label: string, newValue: string) => {
-    console.log("updateSetting: ", label, newValue);
     const updatedHeaderSettings = [...headerSettings];
     for (const headerSetting of updatedHeaderSettings) {
       for (const setting of headerSetting.settings) {
@@ -38,7 +36,6 @@ const useSettings = () => {
       }
     }
   };
-
 
   const getSettingValue = (label: string): string | undefined => {
     for (const headerSetting of headerSettings) {
