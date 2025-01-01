@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsProvider } from "@/contexts/SetttingsContext";
 import { DateProvider } from '@/contexts/DateContext';
+import { DataProvider } from "@/contexts/DataContext";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function RootLayout() {
   return (
     <SettingsProvider>
       <DateProvider>
+        <DataProvider>
         <Stack
           screenOptions={{
             headerRight: () => (
@@ -26,6 +28,7 @@ export default function RootLayout() {
             ),
           }}
         />
+        </DataProvider>
       </DateProvider>
     </SettingsProvider>
   );

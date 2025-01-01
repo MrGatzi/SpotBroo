@@ -33,4 +33,9 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333', // Darker color for better contrast
     },
+    todayBorder: {
+        borderWidth: 2,
+        borderColor: '#ffa500', // Highlight color for today's border
+        borderStyle: 'dashed', // Dashed border style
+    },
 });

@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
 import { HeaderSettings } from '@/components/settings/settings.types';
-import useSettings from '@/hooks/useSettings';
+import { useSettings } from '@/hooks/useSettings';
 
 interface SettingsContextProps {
   headerSettings: HeaderSettings[];

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import settingsData from '../components/settings/settings.json';
 import { HeaderSettings } from '../components/settings/settings.types';
 
-const useSettings = () => {
+export const useSettings = () => {
   const [headerSettings, setHeaderSettings] = useState<HeaderSettings[]>([]);
 
   useEffect(() => {
@@ -54,5 +54,3 @@ const useSettings = () => {
     getSettingValue,
   };
 };
-
-export default useSettings;
