@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import settingsData from '../components/settings/settings.json';
+import { defaultSettings } from '../components/settings/defaultSettings';
 import { HeaderSettings } from '../components/settings/settings.types';
 
 export const useSettings = () => {
@@ -10,16 +10,39 @@ export const useSettings = () => {
     const loadSettings = async () => {
       const savedSettings = await AsyncStorage.getItem('userSettings');
       if (savedSettings) {
-        setHeaderSettings(JSON.parse(savedSettings));
+        const parsedSettings = JSON.parse(savedSettings);
+        const mergedSettings = mergeSettings(defaultSettings, parsedSettings);
+        setHeaderSettings(mergedSettings);
+        await AsyncStorage.setItem('userSettings', JSON.stringify(mergedSettings));
       } else {
-        // Load settings from JSON file
-        const defaultSettings: HeaderSettings[] = settingsData.headers;
         setHeaderSettings(defaultSettings);
         await AsyncStorage.setItem('userSettings', JSON.stringify(defaultSettings));
       }
     };
     loadSettings();
   }, []);
+
+  const mergeSettings = (defaultSettings: HeaderSettings[], userSettings: HeaderSettings[]): HeaderSettings[] => {
+    const mergedSettings = [...defaultSettings];
+
+    userSettings.forEach(userHeader => {
+      const defaultHeader = mergedSettings.find(header => header.header === userHeader.header);
+      if (defaultHeader) {
+        userHeader.settings.forEach(userSetting => {
+          const defaultSetting = defaultHeader.settings.find(setting => setting.label === userSetting.label);
+          if (defaultSetting) {
+            defaultSetting.value = userSetting.value;
+          } else {
+            defaultHeader.settings.push(userSetting);
+          }
+        });
+      } else {
+        mergedSettings.push(userHeader);
+      }
+    });
+
+    return mergedSettings;
+  };
 
   const updateSetting = async (label: string, newValue: string) => {
     const updatedHeaderSettings = [...headerSettings];

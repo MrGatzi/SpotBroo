@@ -4,6 +4,11 @@
         "header": "General",
         "settings": [
           {
+            "label": "Unit",
+            "value": "MWh",
+            "options": ["MWh", "Wh"]
+          },
+          {
             "label": "Country",
             "value": "United States",
             "options": ["United States", "Canada", "United Kingdom", "AT", "DE"]
