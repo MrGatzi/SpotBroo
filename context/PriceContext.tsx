@@ -1,16 +1,17 @@
-import { useData } from '@/hooks/useData';
+import { usePrices } from '@/hooks/usePrices';
 import React, { createContext, useContext, ReactNode } from 'react';
 
 interface DataContextProps {
-  getDataForDay: (date: Date) => Promise<any>;
+  getPricesForDay: (date: Date) => Promise<any>;
+  getPricesForCurrentHour: () => Promise<any>;
 }
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
 
-export const DataProvider = ({ children }: { children: ReactNode }) => {
-  const { getDataForDay } = useData();
+export const PriceProvider = ({ children }: { children: ReactNode }) => {
+  const { getPricesForDay, getPricesForCurrentHour } = usePrices();
   return (
-    <DataContext.Provider value={{ getDataForDay }}>
+    <DataContext.Provider value={{ getPricesForDay, getPricesForCurrentHour }}>
       {children}
     </DataContext.Provider>
   );

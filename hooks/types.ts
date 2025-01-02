@@ -1,53 +1,58 @@
 export interface PublicationMarketDocument {
-  mRID: string;
-  revisionNumber: number;
-  type: string;
-  sender_MarketParticipant: MarketParticipant;
-  receiver_MarketParticipant: MarketParticipant;
-  createdDateTime: string;
-  period: TimeInterval;
-  TimeSeries: TimeSeries[];
+    mRID: string;
+    revisionNumber: number;
+    type: string;
+    sender_MarketParticipant: MarketParticipant;
+    receiver_MarketParticipant: MarketParticipant;
+    createdDateTime: string;
+    period: TimeInterval;
+    TimeSeries: TimeSeries[];
 }
 
 export interface MarketParticipant {
-  mRID: string;
-  marketRole: MarketRole;
+    mRID: string;
+    marketRole: MarketRole;
 }
 
 export interface MarketRole {
-  type: string;
+    type: string;
 }
 
 export interface TimeInterval {
-  start: string;
-  end: string;
+    start: string;
+    end: string;
 }
 
 export interface TimeSeries {
-  mRID: number;
-  auctionType: string;
-  businessType: string;
-  inDomain: Domain;
-  outDomain: Domain;
-  contractMarketAgreementType: string;
-  currencyUnitName: string;
-  priceMeasureUnitName: string;
-  classificationSequenceAttributeInstanceComponentPosition: number;
-  curveType: string;
-  Period: Period;
+    mRID: number;
+    auctionType: string;
+    businessType: string;
+    inDomain: Domain;
+    outDomain: Domain;
+    contractMarketAgreementType: string;
+    currencyUnitName: string;
+    priceMeasureUnitName: string;
+    classificationSequenceAttributeInstanceComponentPosition: number;
+    curveType: string;
+    Period: Period;
 }
 
 export interface Domain {
-  mRID: string;
+    mRID: string;
 }
 
 export interface Period {
-  timeInterval: TimeInterval;
-  resolution: string;
-  Point: Point[];
+    timeInterval: TimeInterval;
+    resolution: string;
+    Point: Point[];
 }
 
 export interface Point {
-  position: number;
-  priceAmount: number;
+    position: number;
+    priceAmount: number;
+}
+
+export interface ChartPoint {
+    time: number;
+    price: number;
 }

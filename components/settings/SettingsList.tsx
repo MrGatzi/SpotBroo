@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { styles } from "./settings.styles";
 import { Setting } from "./settings.types";
 import { SettingsItem } from "./SettingsItem";
-import { useSettingsContext } from "@/contexts/SetttingsContext";
+import { useSettingsContext } from "@/context/SetttingsContext";
 
 /**
  * A component that renders a list of settings.

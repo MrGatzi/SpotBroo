@@ -1,24 +1,17 @@
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
+import { DaysList } from '@/components/days/DaysList';
+import { Chart } from '@/components/chart/chart';
+import { Current } from '@/components/current/current';
 
-export default function Index() {
-  const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (isMounted) {
-      router.replace('/home');
-    }
-  }, [isMounted]);
-
+const Index = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Loading...</Text>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <Current />
+      <Chart />
+      <DaysList />
     </View>
   );
 }
+
+export default Index;

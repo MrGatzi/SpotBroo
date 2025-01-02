@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDateContext } from '@/contexts/DateContext';
+import { useDateContext } from '@/context/DateContext';
 import { Text, TouchableOpacity } from 'react-native';
 import { DayItemProps } from './days.types';
 import { styles } from './days.styles';

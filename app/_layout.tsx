@@ -1,34 +1,42 @@
-import { Stack, useRouter, useSegments } from "expo-router";
-import { TouchableOpacity } from 'react-native';
+import { Stack, useRouter } from "expo-router";
+import { StatusBar, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { SettingsProvider } from "@/contexts/SetttingsContext";
-import { DateProvider } from '@/contexts/DateContext';
-import { DataProvider } from "@/contexts/DataContext";
+import { SettingsProvider } from "@/context/SetttingsContext";
+import { DateProvider } from '@/context/DateContext';
+import { PriceProvider } from "@/context/PriceContext";
 
 export default function RootLayout() {
   const router = useRouter();
-  const segments = useSegments();
 
   const goToSettings = () => {
-    router.push('/settings');
+    router.push("/settings");
   };
 
   return (
     <SettingsProvider>
       <DateProvider>
-        <DataProvider>
-        <Stack
-          screenOptions={{
-            headerRight: () => (
-              segments[0] === 'home' ? (
-                <TouchableOpacity onPressIn={goToSettings}>
-                  <Ionicons name="settings-outline" size={24} color="black" />
-                </TouchableOpacity>
-              ) : null
-            ),
-          }}
-        />
-        </DataProvider>
+        <PriceProvider>
+          <StatusBar barStyle="dark-content" />
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                title: 'SpotBroo', // Change the title here
+                headerRight: () => (
+                  <TouchableOpacity onPressIn={goToSettings}>
+                    <Ionicons name="settings-outline" size={24} color="black" />
+                  </TouchableOpacity>
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="settings"
+              options={{
+                title: 'Settings', // Change the title here
+              }}
+            />
+          </Stack>
+        </PriceProvider>
       </DateProvider>
     </SettingsProvider>
   );

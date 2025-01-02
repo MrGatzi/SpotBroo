@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, TouchableWithoutFeedback } from 'react-native';
 import { SettingsItemProps } from './settings.types';
 import { styles } from './settings.styles';
-import { useSettingsContext } from '@/contexts/SetttingsContext';
+import { useSettingsContext } from '@/context/SetttingsContext';
 
 /**
  * A component that renders a single settings item.
