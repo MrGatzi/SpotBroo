@@ -6,6 +6,7 @@ import { DateProvider } from '@/context/DateContext';
 import { PriceProvider } from "@/context/PriceContext";
 
 export default function RootLayout() {
+
   const router = useRouter();
 
   const goToSettings = () => {

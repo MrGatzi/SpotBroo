@@ -11,7 +11,6 @@ const getLast30Days = () => {
         date.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
         days.push(date);
     }
-    console.log(days);
     return days.reverse();
 };
 

@@ -15,7 +15,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mgatzwei.SpotBroo",
+      "permissions": [
+        "BACKGROUND_FETCH"
+      ]
     },
     "web": {
       "bundler": "metro",
