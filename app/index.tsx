@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <Current />
-      {/* <Chart /> */}
+      <Chart />
       <DaysList />
     </View>
   );

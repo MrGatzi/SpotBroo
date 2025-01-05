@@ -13,7 +13,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     // const currentPrice = await getCurrentPriceData();
     const currentPrice = Math.random() * 10;
     console.log('Background fetch executed', currentPrice);
-    SharedPreferences.setItem('currentPrice', currentPrice.toString());
+    //SharedPreferences.setItem('currentPrice', currentPrice.toString());
     console.log('Item set', currentPrice);
     return BackgroundFetch.BackgroundFetchResult.NewData;
   } catch (error) {
