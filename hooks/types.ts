@@ -52,7 +52,7 @@ export interface Point {
     priceAmount: number;
 }
 
-export interface ChartPoint {
+export type ChartPoint = {
     time: number;
     price: number;
 }

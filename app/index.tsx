@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, PermissionsAndroid, Platform } from 'react-native';
 import { DaysList } from '@/components/days/DaysList';
-import { Chart } from '@/components/chart/chart';
 import { Current } from '@/components/current/current';
-import { registerBackgroundFetchAsync, unregisterBackgroundFetchAsync,BACKGROUND_FETCH_TASK } from '../services/backgroundFetch';
+import { registerBackgroundFetchAsync, BACKGROUND_FETCH_TASK } from '../services/backgroundFetch';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
+import { Chart } from '@/components/chart/Chart';
+import {
+  getPermission,
+  useSEA,
+} from 'react-native-schedule-exact-alarm-permission';
 
 const Index = () => {
+  const SEAstatus = useSEA();
 
   useEffect(() => {
     setBackgroundTask();
+    requestAlarmPermission();
   }, []);
 
   const setBackgroundTask = async () => {
@@ -26,11 +32,18 @@ const Index = () => {
     }
   };
 
+  const requestAlarmPermission = async () => {
+    if (Platform.OS === 'android') {
+      console.log('Requesting alarm permission', SEAstatus);
+      if(SEAstatus) return;
+      const granted = await getPermission();
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <Current />
-      <Chart />
+      <Chart/>
       <DaysList />
     </View>
   );
