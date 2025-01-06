@@ -45,6 +45,7 @@ export const ChartComponent = (props: ChartComponentProps) => {
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
         <CartesianChart
+            key={"chart"}
             xKey="time"
             yKeys={["price"]}
             data={data}
@@ -63,7 +64,7 @@ export const ChartComponent = (props: ChartComponentProps) => {
             {({ points, chartBounds }) => {
                 return points.price.map((point, index) => {
                     return (
-                        <>
+                        <React.Fragment key={index}>
                             <Bar
                                 key={index}
                                 barCount={points.price.length}
@@ -104,7 +105,7 @@ export const ChartComponent = (props: ChartComponentProps) => {
                                     />
                                 </>
                             ) : null}
-                        </>
+                         </React.Fragment>
                     );
                 });
             }}

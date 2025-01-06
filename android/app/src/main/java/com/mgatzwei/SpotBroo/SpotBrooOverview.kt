@@ -93,7 +93,8 @@ internal fun updateAppWidget(
 ) {
     Log.d("SpotBrooOverview", "MGW really Updating widget with ID: $appWidgetId")
     val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
-    val currentPrice = sharedPreferences.getString("currentPrice", "Price: $0.00")
+    val currentPrice = sharedPreferences.getString("currentPrice", "undefined")
+    val settingsUnit = sharedPreferences.getString("settingsUnit", "MWh")
     Log.d("SpotBrooOverview", "MGW Got Price with: $currentPrice")
 
     val now = Calendar.getInstance()
@@ -103,7 +104,7 @@ internal fun updateAppWidget(
     val views = RemoteViews(context.packageName, R.layout.spot_broo_overview)
     views.setTextViewText(R.id.appwidget_title, "SpotBroo")
     views.setTextViewText(R.id.appwidget_hour, "Hour: $currentHour")
-    views.setTextViewText(R.id.appwidget_price, "Price: $currentPrice")
+    views.setTextViewText(R.id.appwidget_price, "Price: $currentPrice / $settingsUnit")
 
     //This makes it able to update the View onCLick!
     /*val updateIntent = getManualUpdateIntent(context)

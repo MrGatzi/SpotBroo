@@ -77,3 +77,19 @@ export const useSettings = () => {
     getSettingValue,
   };
 };
+
+// Public function to get a specific setting value from AsyncStorage
+export const getSettingValueAsync = async (label: string): Promise<string | undefined> => {
+  const savedSettings = await AsyncStorage.getItem('userSettings');
+  if (savedSettings) {
+    const parsedSettings: HeaderSettings[] = JSON.parse(savedSettings);
+    for (const headerSetting of parsedSettings) {
+      for (const setting of headerSetting.settings) {
+        if (setting.label === label) {
+          return setting.value;
+        }
+      }
+    }
+  }
+  return undefined;
+};

@@ -1,6 +1,7 @@
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
-//import { getCurrentPriceData } from './hooks/usePrices';
+import { getPricesForCurrentHourAsync } from '@/hooks/usePrices';
+import { getSettingValueAsync } from '@/hooks/useSettings';
 import { NativeModules } from 'react-native';
 
 const { SharedPreferences } = NativeModules;
@@ -8,22 +9,19 @@ const { SharedPreferences } = NativeModules;
 export const BACKGROUND_FETCH_TASK = 'background-fetch-task';
 
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
-  console.log('MGW Background fetch task try started');
   try {
-    //const currentPrice = await getCurrentPriceData();
-    const currentPrice = Math.random() * 10;
-    console.log('MGW Background fetch executed', currentPrice);
+    const settingsUnit = await getSettingValueAsync("Unit");
+    const currentPrice = await getPricesForCurrentHourAsync();
     SharedPreferences.setItem('currentPrice', currentPrice.toString());
-    console.log('MGW Item set really', currentPrice);
+    SharedPreferences.setItem('settingsUnit', settingsUnit.toString());
     return BackgroundFetch.BackgroundFetchResult.NewData;
   } catch (error) {
-    console.error('MGW Background fetch task failed:', error);
     return BackgroundFetch.BackgroundFetchResult.Failed;
   }
 });
 
 export const registerBackgroundFetchAsync = async () => {
-  console.log("MGW Registering background fetch task");
+  setInitialBackgroundData();
   return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
     minimumInterval: 1 * 20, // 1 minute
     stopOnTerminate: false,
@@ -32,6 +30,14 @@ export const registerBackgroundFetchAsync = async () => {
 };
 
 export const unregisterBackgroundFetchAsync = async () => {
-  console.log("MGW Un--registering background fetch task");
   return BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK);
+};
+
+export const setInitialBackgroundData = async () => {
+  console.log('Setting initial background data');
+  const settingsUnit = await getSettingValueAsync("Unit");
+  const currentPrice = await getPricesForCurrentHourAsync();
+
+  SharedPreferences.setItem('currentPrice', currentPrice.toString());
+  SharedPreferences.setItem('settingsUnit', settingsUnit);
 };
