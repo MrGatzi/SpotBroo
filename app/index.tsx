@@ -5,7 +5,7 @@ import { Current } from '@/components/current/current';
 import { registerBackgroundFetchAsync, BACKGROUND_FETCH_TASK } from '../services/backgroundFetch';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
-import { Chart } from '@/components/chart/Chart';
+import { Chart } from '@/components/chart/chart';
 import { AlarmPermissionChecker } from '@/components/permission/AlarmPermissionChecker';
 
 const Index = () => {
