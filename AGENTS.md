@@ -8,7 +8,7 @@ SpotBroo is a React Native / Expo mobile app (SDK 52) that displays European ele
 
 ### Key commands
 
-- **Install deps:** `npm install`
+- **Install deps:** `npm install --legacy-peer-deps`
 - **Lint:** `npm run lint` (wraps `expo lint` / ESLint)
 - **Type check:** `npx tsc --noEmit`
 - **Tests:** `npx jest --ci --passWithNoTests` (no test files exist currently; `npm test` uses `--watchAll` which blocks the terminal)
@@ -17,7 +17,11 @@ SpotBroo is a React Native / Expo mobile app (SDK 52) that displays European ele
 
 ### Non-obvious caveats
 
-- **Skia on web:** `@shopify/react-native-skia` (used by `victory-native` charts) does not support web. Running `npx expo start --web` will bundle successfully but throw a runtime `SkiaViewApi is not defined` error in the browser. This is a known limitation — the app is designed for Android/iOS.
+- **CORS on web:** The ENTSO-E API does not support CORS. Running the app on web (`npx expo start --web`) will render the UI correctly but price data will fail to load due to browser CORS restrictions. On mobile (Android/iOS) this works fine.
+- **Chart library:** Charts use `react-native-svg` directly (replaced the previous `victory-native` / `@shopify/react-native-skia` which did not support web). The chart component is at `components/chart/ChartComponent.tsx`.
+- **Android Widget:** Uses `react-native-android-widget` with a config plugin (defined in `app.json`). Widget component is in `widgets/SpotBrooWidget.tsx`, task handler is in `widget-task-handler.tsx`, and entry point is `index.ts`. After changing widget config, run `npx expo prebuild --clean` to regenerate native code.
+- **Entry point:** The app entry is `index.ts` (not `expo-router/entry`) to register the widget task handler alongside expo-router. See `package.json` `"main"` field.
 - **No test files:** The repository has `jest` configured but contains zero test files. Use `--passWithNoTests` or `--ci` to avoid a non-zero exit code.
 - **ESLint auto-config:** On first `npm run lint`, Expo auto-installs `eslint` and `eslint-config-expo` if not present. Subsequent runs are fast.
 - **Background fetch / alarm permissions:** `AlarmPermissionChecker` and `expo-background-fetch` use native Android APIs. These features do not work in Expo Go or on web.
+- **Legacy peer deps:** `react-native-android-widget` may require `--legacy-peer-deps` flag during `npm install`.
