@@ -8,18 +8,13 @@ import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
 import com.facebook.react.ReactHost
-import com.facebook.react.bridge.NativeModule
-import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
-import com.facebook.react.uimanager.ViewManager
 import com.facebook.soloader.SoLoader
 
 import expo.modules.ApplicationLifecycleDispatcher
 import expo.modules.ReactNativeHostWrapper
-
-import com.mgatzwei.SpotBroo.SharedPreferencesModule
 
 class MainApplication : Application(), ReactApplication {
 
@@ -27,21 +22,7 @@ class MainApplication : Application(), ReactApplication {
         this,
         object : DefaultReactNativeHost(this) {
           override fun getPackages(): List<ReactPackage> {
-            val packages = PackageList(this).packages
-
-            // Add your custom SharedPreferencesModule here
-            packages.add(object : ReactPackage {
-              override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-                return listOf(SharedPreferencesModule(reactContext))
-              }
-
-              override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-                return emptyList()
-              }
-            })
-            // Packages that cannot be autolinked yet can be added manually here, for example:
-            // packages.add(new MyReactNativePackage());
-            return packages
+            return PackageList(this).packages
           }
 
           override fun getJSMainModuleName(): String = ".expo/.virtual-metro-entry"
