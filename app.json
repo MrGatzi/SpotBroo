@@ -7,9 +7,9 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mgatzwei.SpotBroo"
     },
     "android": {
       "adaptiveIcon": {
@@ -52,6 +52,27 @@
               "targetCellHeight": 2,
               "description": "Shows current electricity spot price and hourly chart",
               "updatePeriodMillis": 1800000
+            }
+          ]
+        }
+      ],
+      [
+        "expo-widgets",
+        {
+          "ios": {
+            "bundleIdentifier": "com.mgatzwei.SpotBroo.widgets",
+            "groupIdentifier": "group.com.mgatzwei.SpotBroo"
+          },
+          "widgets": [
+            {
+              "name": "SpotBrooWidget",
+              "displayName": "SpotBroo Prices",
+              "description": "Shows current electricity spot price and hourly chart",
+              "supportedFamilies": [
+                "systemSmall",
+                "systemMedium",
+                "systemLarge"
+              ]
             }
           ]
         }
